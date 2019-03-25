@@ -8,41 +8,41 @@ namespace PedometerU.Platforms {
     using AOT;
     using System.Runtime.InteropServices;
 
-    public sealed class PedometeriOS : IPedometer {
+    // public sealed class PedometeriOS : IPedometer {
 
 
-        #region --IPedometer--
+    //     #region --IPedometer--
 
-        event StepCallback IPedometer.OnStep {
-            add {
-                if (stepCallback == null) PedometerBridge.Initialize(OnStep);
-                stepCallback += value;
-            }
-            remove {
-                stepCallback -= value;
-                if (stepCallback == null) PedometerBridge.Release();
-            }
-        }
+    //     event StepCallback IPedometer.OnStep {
+    //         add {
+    //             if (stepCallback == null) PedometerBridge.Initialize(OnStep);
+    //             stepCallback += value;
+    //         }
+    //         remove {
+    //             stepCallback -= value;
+    //             if (stepCallback == null) PedometerBridge.Release();
+    //         }
+    //     }
 
-        bool IPedometer.IsSupported {
-            get {
-                return PedometerBridge.IsSupported();
-            }
-        }
-        #endregion
+    //     bool IPedometer.IsSupported {
+    //         get {
+    //             return PedometerBridge.IsSupported();
+    //         }
+    //     }
+    //     #endregion
 
 
-        #region --Operations--
+    //     #region --Operations--
 
-        private StepCallback stepCallback;
+    //     private StepCallback stepCallback;
 
-        [MonoPInvokeCallback(typeof(StepCallback))]
-        private static void OnStep (int steps, double distance) {
-            // Relay
-            PedometerUtility.Dispatch(() => {
-                (Pedometer.Implementation as PedometeriOS).stepCallback(steps, distance);
-            });
-        }
-        #endregion
-    }
+    //     [MonoPInvokeCallback(typeof(StepCallback))]
+    //     private static void OnStep (int steps, double distance) {
+    //         // Relay
+    //         PedometerUtility.Dispatch(() => {
+    //             (Pedometer.Implementation as PedometeriOS).stepCallback(steps, distance);
+    //         });
+    //     }
+    //     #endregion
+    // }
 }

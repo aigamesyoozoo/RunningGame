@@ -76,14 +76,15 @@ namespace PedometerU {
 
         static Pedometer () {
             // Create implementation for this platform
+            // Implementation =
+            // #if UNITY_IOS && !UNITY_EDITOR
+            // new PedometeriOS();
             Implementation =
-            #if UNITY_IOS && !UNITY_EDITOR
-            new PedometeriOS();
-            #elif UNITY_ANDROID && !UNITY_EDITOR
+            //#if UNITY_ANDROID && !UNITY_EDITOR
             new PedometerAndroid();
-            #else
-            null;
-            #endif
+           // #else
+           // null;
+           // #endif
             PedometerUtility.Initialize();
         }
         #endregion
