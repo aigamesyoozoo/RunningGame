@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Pedometer API
 Pedometer is a native pedometer API for the Unity game engine. The API provides sensor information about step count and distance covered (in meters). It is a minimalist API with native backends on iOS and Android.
 
@@ -27,3 +28,6 @@ pedometer.Dispose();
 
 ## Credits
 - [Yusuf Olokoba](mailto:olokobayusuf@gmail.com)
+=======
+# RunningGame
+>>>>>>> 2aa8611db943eebf23561cd9c58d69a632f4f5fb
