@@ -41,14 +41,20 @@ public class StepCounter : MonoBehaviour {
     //add auto function
     private Pedometer pedometer;
     private bool m_isMoving = true;
-    public int previous_steps = 0;
-    public int current_steps = 0;
+    private int previous_steps = 0;
+    private int current_steps = 0;
     private double previous_distance;
     private double current_distance;
 
     public Text stepText;
     public Text distanceText; 
     public Text speedText;
+    public Text resultText;
+
+    public AudioSource monster;
+    private int Max_warnTime = 3;
+    private int warningTime = 0;
+    private bool Health = true;
 
 
     private void Start(){
@@ -56,9 +62,12 @@ public class StepCounter : MonoBehaviour {
         pedometer = new Pedometer(OnStep);
         previous_distance = 0;
         current_distance = 0;
+        resultText.text ="";
         // Reset UI
         OnStep(0, 0);
-        InvokeRepeating("IsMoving",0.0f,1.0f);
+        InvokeRepeating("IsMoving",0.0f,0.5f);
+        InvokeRepeating("Warning",10.0f, 4.0f);
+        //Invoke("Dead", DeadTime + monster.clip.Length);
     }
 
     private void IsMoving(){
@@ -71,6 +80,32 @@ public class StepCounter : MonoBehaviour {
             speedText.text = (((current_distance - previous_distance) * 3.28084 * 0.0003048) * 3600).ToString("F2") + " km/h";
             previous_distance = current_distance;
         }
+    }
+
+    private void Warning(){
+        if(Health){
+            if(warningTime >= Max_warnTime)
+            {
+                monster.Stop();
+                Health = false;  
+            }
+            else if((warningTime < Max_warnTime) && !m_isMoving)
+            {
+                monster.Play();
+                warningTime++;
+            }
+            else{
+                monster.Stop();
+                warningTime = 0;
+            }
+        }
+        else{
+             resultText.text = "Dead!";
+        }
+    }
+
+    private void Dead(){
+        resultText.text = "Dead!";
     }
 
     private void OnStep (int steps, double distance) {
@@ -167,6 +202,7 @@ public class StepCounter : MonoBehaviour {
 
         m_wasGrounded = m_isGrounded;
     }
+
 
     private void TankUpdate()
     {
