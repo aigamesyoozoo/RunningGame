@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Globalization;
 
 public class GameController : MonoBehaviour
 {
@@ -13,9 +14,10 @@ public class GameController : MonoBehaviour
     private int steps;
     private int duration;
     private float speed;
-    private DateTime date;
+    public DateTime date;
     
     void Awake(){
+        date = DateTime.Now;
         if(controller == null){
             DontDestroyOnLoad(gameObject);
             controller = this;
@@ -54,12 +56,12 @@ public class GameController : MonoBehaviour
 }
 
 [Serializable]
-Class PlayerData(){
-    private float distance;
-    private float speed;
-    private int steps;
-    private int duration;
-    private DateTime date;
+class PlayerData{
+    public float distance;
+    public float speed;
+    public int steps;
+    public int duration;
+    public DateTime date;
 
     public PlayerData(float distance, int steps, int duration, float speed, DateTime date){
         this.distance = distance;
