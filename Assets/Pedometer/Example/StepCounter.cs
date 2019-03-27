@@ -2,7 +2,9 @@ namespace PedometerU.Tests {
 
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class StepCounter : MonoBehaviour {
 
@@ -40,28 +42,39 @@ public class StepCounter : MonoBehaviour {
 
     //add auto function
     private Pedometer pedometer;
-    private bool m_isMoving = true;
-    public int previous_steps = 0;
-    public int current_steps = 0;
+    private bool m_isMoving = false;
+    private int previous_steps = 0;
+    private int current_steps = 0;
     private double previous_distance;
     private double current_distance;
 
     public Text stepText;
     public Text distanceText; 
     public Text speedText;
+    public Text resultText;
+
+    public AudioSource monster;
+    private int Max_warnTime = 3;
+    private int warningTime = 0;
+    private bool IsAlive = true;
 
 
-    private void Start(){
+    void Start(){
         // Create a new pedometer
         pedometer = new Pedometer(OnStep);
-        previous_distance = 0;
-        current_distance = 0;
+        
         // Reset UI
+        previous_distance = 0.0f;
+        current_distance = 0.0f;
+        resultText.text = "";
         OnStep(0, 0);
-        InvokeRepeating("IsMoving",0.0f,1.0f);
+
+        InvokeRepeating("IsMoving",0.0f,0.3f);
+        InvokeRepeating("Warning",10.0f,4.0f);
+        //Invoke("Dead", DeadTime + monster.clip.Length);
     }
 
-    private void IsMoving(){
+    void IsMoving(){
         if(current_steps == previous_steps){
             m_isMoving = false;
             speedText.text = "0 km/h";
@@ -72,6 +85,46 @@ public class StepCounter : MonoBehaviour {
             previous_distance = current_distance;
         }
     }
+
+    void Warning(){
+        if(IsAlive){
+            if(warningTime >= Max_warnTime)
+            {
+                monster.Stop();
+                //IsAlive = false;  
+            }
+            else if((warningTime < Max_warnTime) && !m_isMoving)
+            {
+                StartCoroutine(Wait());
+                monster.Play();
+                warningTime++;
+            }
+            else{
+                monster.Stop();
+                warningTime = 0;
+            }
+        }
+        else{
+             
+             resultText.text = "Die!";
+             m_isMoving = false;
+             GameController.controller.distance = current_distance * 3.28084 * 0.0003048;
+             GameController.controller.duration = Time.timeSinceLevelLoad/(60.0f);
+             GameController.controller.speed = GameController.controller.distance / (GameController.controller.duration/(60.0f));
+
+             StartCoroutine(Die());
+        }
+    }
+
+    IEnumerator Wait(){
+        yield return new WaitForSeconds(4);
+    } 
+
+    IEnumerator Die(){
+        yield return new WaitForSeconds(3);    
+
+        SceneManager.LoadScene("Results");
+    } 
 
     private void OnStep (int steps, double distance) {
         // Display the values // Distance in feet
@@ -168,6 +221,7 @@ public class StepCounter : MonoBehaviour {
         m_wasGrounded = m_isGrounded;
     }
 
+
     private void TankUpdate()
     {
         float v = Input.GetAxis("Vertical");
@@ -237,12 +291,12 @@ public class StepCounter : MonoBehaviour {
             m_animator.SetFloat("MoveSpeed", m_currentV);
         }
         else{
-        Vector3 direction = new Vector3(0,0,1);
+            Vector3 direction = new Vector3(0,0,1);
 
-        m_currentV = 1.0f;
-        m_moveSpeed = 2.0f;
-        transform.Translate(direction * m_moveSpeed * Time.deltaTime);
-        m_animator.SetFloat("MoveSpeed", m_currentV);
+            m_currentV = 1.0f;
+            m_moveSpeed = 2.0f;
+            transform.Translate(direction * m_moveSpeed * Time.deltaTime);
+            m_animator.SetFloat("MoveSpeed", m_currentV);
         }
 
         JumpingAndLanding();       

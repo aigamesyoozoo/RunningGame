@@ -71,10 +71,12 @@
     <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometeriOS.cs" />
     <Compile Include="Assets\Scripts\CreateScence.cs" />
     <Compile Include="Assets\Scripts\Destroy.cs" />
+    <Compile Include="Assets\Scripts\EndRun.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\MenuScript.cs" />
     <Compile Include="Assets\Scripts\NavigationScript.cs" />
+    <Compile Include="Assets\Scripts\PickupGem.cs" />
     <Compile Include="Assets\Scripts\ResultsScript.cs" />
     <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\CameraLogic.cs" />
     <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\Demo.cs" />

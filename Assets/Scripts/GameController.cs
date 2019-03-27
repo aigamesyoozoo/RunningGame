@@ -9,6 +9,7 @@ using System.Globalization;
 public class GameController : MonoBehaviour
 {
     public static GameController controller;
+
     const string RUN_DATA_DESTINATION = "/runsData.dat";
     const string PLAYER_DATA_DESTINATION = "/playerData.dat";
 
@@ -19,7 +20,7 @@ public class GameController : MonoBehaviour
     public int gems;
 
     public List<RunItem> runList = new List<RunItem>();
-    
+
     void Awake(){
         date = DateTime.Now;
         if(controller == null){
@@ -47,7 +48,6 @@ public class GameController : MonoBehaviour
         {
             Debug.Log(r);
         }
-
 
         // Gems
         BinaryFormatter bf2 = new BinaryFormatter();
