@@ -60,28 +60,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Gems Ultimate Pack\Scripts\AnimationScript.cs" />
-    <Compile Include="Assets\Pedometer\Example\StepCounter.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\IPedometer.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\Pedometer.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\PedometerTypes.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\PedometerUtility.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerAndroid.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerBridge.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometeriOS.cs" />
-    <Compile Include="Assets\Scripts\CreateScence.cs" />
-    <Compile Include="Assets\Scripts\Destroy.cs" />
-    <Compile Include="Assets\Scripts\EndRun.cs" />
-    <Compile Include="Assets\Scripts\GameController.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\MenuScript.cs" />
-    <Compile Include="Assets\Scripts\NavigationScript.cs" />
-    <Compile Include="Assets\Scripts\PickupGem.cs" />
-    <Compile Include="Assets\Scripts\ResultsScript.cs" />
-    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\CameraLogic.cs" />
-    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\Demo.cs" />
-    <Compile Include="Assets\TestController.cs" />
-    <Compile Include="Assets\TestControllerCCC.cs" />
+    <Compile Include="Assets\External sources\Gems Ultimate Pack\Scripts\AnimationScript.cs" />
+    <Compile Include="Assets\External sources\Supercyan Character Pack Free Sample\Scripts\CameraLogic.cs" />
+    <Compile Include="Assets\External sources\Supercyan Character Pack Free Sample\Scripts\Demo.cs" />
+    <Compile Include="Assets\Scenes Scripts\CreateScence.cs" />
+    <Compile Include="Assets\Scenes Scripts\Destroy.cs" />
+    <Compile Include="Assets\Scenes Scripts\EndRun.cs" />
+    <Compile Include="Assets\Scenes Scripts\GameController.cs" />
+    <Compile Include="Assets\Scenes Scripts\MenuScript.cs" />
+    <Compile Include="Assets\Scenes Scripts\PickupGem.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\IPedometer.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\Pedometer.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\PedometerTypes.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\PedometerUtility.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\Platforms\PedometerAndroid.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\Platforms\PedometerBridge.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\Platforms\PedometeriOS.cs" />
+    <Compile Include="Assets\Scenes Scripts\ResultsScript.cs" />
+    <Compile Include="Assets\Scenes Scripts\StepCounter.cs" />
+    <None Include="Assets\External sources\Sets - Gems\Shaders\Gem.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/User/Documents/5. CODE/UnityProjects/RunGame2/RunningGame/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
