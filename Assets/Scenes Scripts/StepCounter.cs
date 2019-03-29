@@ -45,22 +45,27 @@ namespace PedometerU.Tests
         //add auto function
         private Pedometer pedometer;
         private bool m_isMoving = false;
-        private int previous_steps = 0;
-        private int current_steps = 0;
-        private double previous_distance;
-        private double current_distance;
+        public int previous_steps = 0; // change back to private
+        public int current_steps = 0; // change back to private
+        public double previous_distance;
+        public double current_distance;
 
         public Text stepText;
         public Text distanceText;
         public Text speedText;
         public Text resultText;
+        public Text gemText;
+        public CanvasGroup panelMessage;
 
-        public AudioSource monster;
+        public AudioSource monsterGrowl;
+        public AudioSource monsterFootsteps;
         public AudioSource story;
-        private int Max_warnTime = 3;
+        public AudioSource gemSound;
+        private int Max_warnTime = 5;
         private int warningTime = 0;
         private bool IsAlive = true;
 
+        public CameraShake cameraShake;
 
         void Start()
         {
@@ -73,70 +78,87 @@ namespace PedometerU.Tests
             resultText.text = "";
             OnStep(0, 0);
 
-            InvokeRepeating("IsMoving", 0.0f, 0.3f);
-            InvokeRepeating("Warning", 10.0f, 10.0f);
+            GameController.controller.Reset();
 
-            //Invoke("Dead", DeadTime + monster.clip.Length);
+            InvokeRepeating("UpdateMoving", 0.0f, 0.3f);
+            InvokeRepeating("UpdateSpeed", 0.0f, 10f);
+            InvokeRepeating("Warning", 10.0f, 17.0f);
         }
 
-        void IsMoving()
+        void UpdateMoving()
         {
-            if (current_steps == previous_steps)
-            {
-                m_isMoving = false;
-                speedText.text = "0 km/h";
-            }
-            else
-            {
-                m_isMoving = true;
-                speedText.text = (((current_distance - previous_distance) * 3.28084 * 0.0003048) * 3600).ToString("F2") + " km/h";
-                previous_distance = current_distance;
-            }
+            m_isMoving = current_steps != previous_steps;
         }
+
+        void UpdateSpeed()
+        {
+            speedText.text = (((current_distance - previous_distance) * 3.28084 * 0.0003048) * 3600).ToString("F2") + " km/h";
+            previous_distance = current_distance;
+        }
+
+
         void Warning()
         {
-            if (IsAlive)
+            // When player is not moving,
+            // warn for monster attacks if user is not moving
+            if (!m_isMoving)
             {
-                if (warningTime >= Max_warnTime)
+                warningTime++;
+
+                if (warningTime < Max_warnTime)
                 {
-                    monster.Stop();
-                    IsAlive = false;  
-                }
-                else if ((warningTime < Max_warnTime) && !m_isMoving)
-                {
-                    StartCoroutine(Wait());
-                    monster.Play();
-                    warningTime++;
+                    monsterGrowl.Play();
+                    Invoke("PlayFootSteps", monsterGrowl.clip.length);
+
+                    switch (warningTime)
+                    {
+                        case 1:
+                            story.Pause();
+                            resultText.text = "Monster is catching up, \nRUN!";
+                            panelMessage.alpha = 1;
+                            break;
+                        case 3:
+                            GameController.controller.gems = (int)(GameController.controller.gems * 0.8);
+                            gemText.text = GameController.controller.gems.ToString();
+                            resultText.text = "Monster robbed you of 20% gems!";
+                            break;
+                        case 4:
+                            resultText.text = "Run or die!";
+                            break;
+                    }
                 }
                 else
                 {
-                    monster.Stop();
-                    warningTime = 0;
+                    // Maximum warnings result in player's end
+                    // Display text and go to Results Screen
+                    monsterGrowl.Play();
+                    resultText.text = "K.O.";
+                    GameController.controller.lose = true;
+                    Invoke("EndRun", 5f);
                 }
             }
-            else
+
+            // Once player starts moving from a previous stop,
+            // Resume story and reset warning 
+            else if (!story.isPlaying)
             {
-                resultText.text = "Die!";
-                m_isMoving = false;
-
-                GameController.controller.duration = Time.timeSinceLevelLoad / (60.0f);
-                GameController.controller.speed = (float)(GameController.controller.distance / (GameController.controller.duration / (60.0f)));
-
-                StartCoroutine(Die());
+                story.Play();
+                warningTime = 0;
+                panelMessage.GetComponent<FadeScript>().Fade();
             }
         }
 
-        IEnumerator Wait()
+        private void PlayFootSteps()
         {
-            yield return new WaitForSeconds(4);
+            Handheld.Vibrate();
+            monsterFootsteps.Play();
+            StartCoroutine(cameraShake.Shake(.9f, .015f, 9));
         }
 
-        IEnumerator Die()
-        {
-            yield return new WaitForSeconds(3);
-
-            SceneManager.LoadScene("Results");
-        }
+        //IEnumerator Wait()
+        //{
+        //    yield return new WaitForSeconds(4);
+        //}
 
         public void EndRun()
         {
@@ -148,6 +170,7 @@ namespace PedometerU.Tests
 
         private void OnStep(int steps, double distance)
         {
+            // Display distance and steps
             // Display the values // Distance in feet
             GameController.controller.distance = distance * 3.28084 * 0.0003048;
             previous_steps = current_steps;
@@ -235,7 +258,6 @@ namespace PedometerU.Tests
                     break;
 
                 case ControlMode.Auto:
-
                     AutoUpdate();
                     break;
 
@@ -273,7 +295,22 @@ namespace PedometerU.Tests
 
             m_animator.SetFloat("MoveSpeed", m_currentV);
 
-            JumpingAndLanding();
+            // When user press up arrow key
+            // Create steps and distance
+            if (v > 0)
+            {
+                double d = current_distance + 80;
+                int s = current_steps + 1;
+                GameController.controller.distance = d * 3.28084 * 0.0003048;
+                previous_steps = current_steps;
+                current_steps = s;
+                current_distance = d;
+
+                stepText.text = s.ToString();
+                distanceText.text = (d * 3.28084 * 0.0003048).ToString("F2") + " km";
+            }
+
+            //JumpingAndLanding();
         }
 
         private void DirectUpdate()
@@ -330,7 +367,7 @@ namespace PedometerU.Tests
                 m_animator.SetFloat("MoveSpeed", m_currentV);
             }
 
-            JumpingAndLanding();
+            //JumpingAndLanding();
         }
 
         private void JumpingAndLanding()

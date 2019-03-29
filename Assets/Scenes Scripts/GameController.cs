@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     public float speed;
     public DateTime date;
     public int gems;
+    public bool lose;
 
     public List<RunItem> runList = new List<RunItem>();
 
@@ -66,6 +67,12 @@ public class GameController : MonoBehaviour
             file.Close();
         }
         return runList;
+    }
+
+    public void Reset()
+    {
+        gems = 0;
+        lose = false;
     }
 
     public int GetTotalGems()

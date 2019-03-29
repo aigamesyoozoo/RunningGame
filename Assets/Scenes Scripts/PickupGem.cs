@@ -7,6 +7,7 @@ public class PickupGem : MonoBehaviour
 {
     public GameObject Gem;
     public Text GemText;
+    public AudioSource gemSound;
     GameObject GemObj;
     int collectedGems = 0;
     float Interval = 4.0f;
@@ -30,26 +31,27 @@ public class PickupGem : MonoBehaviour
 
     void DisplayGem(){
         if(GameController.controller.distance >= goal_distance){
-            
-            goal_distance = goal_distance + Interval_distance;
-            GemObj.transform.position = transform.position + addtion;
-            //Quaternion target = Quaternion.Euler(90,0,0);
-            GemObj.transform.rotation = transform.rotation;
-            //coinObj.transform.rotation = Quaternion.Slerp(transform.rotation, target, 1);
-            GemObj.SetActive(true);
+            if (!GemObj.activeSelf)
+            {
+                goal_distance = goal_distance + Interval_distance;
+                GemObj.transform.position = transform.position + addtion;
+                //Quaternion target = Quaternion.Euler(90,0,0);
+                GemObj.transform.rotation = transform.rotation;
+                //coinObj.transform.rotation = Quaternion.Slerp(transform.rotation, target, 1);
+                GemObj.SetActive(true);
+            }
         }
     }
 
     void OnTriggerEnter(Collider other){
         //Debug.Log("hit");
         if(other.tag == "Gem"){
+            gemSound.Play();
             //Destroy(other.gameObject);
             GemObj.SetActive(false);
             //Debug.Log("hit");
-            collectedGems++;
-            GemText.text = collectedGems.ToString();
-            GameController.controller.gems = collectedGems;
-                        
+            GameController.controller.gems++;
+            GemText.text = GameController.controller.gems.ToString();
         }
     }        
 }

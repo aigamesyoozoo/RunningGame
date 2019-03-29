@@ -60,12 +60,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\External sources\cave_troll\scripts\camera_follow.cs" />
     <Compile Include="Assets\External sources\Gems Ultimate Pack\Scripts\AnimationScript.cs" />
     <Compile Include="Assets\External sources\Supercyan Character Pack Free Sample\Scripts\CameraLogic.cs" />
     <Compile Include="Assets\External sources\Supercyan Character Pack Free Sample\Scripts\Demo.cs" />
+    <Compile Include="Assets\Scenes Scripts\CameraShake.cs" />
     <Compile Include="Assets\Scenes Scripts\CreateScence.cs" />
     <Compile Include="Assets\Scenes Scripts\Destroy.cs" />
     <Compile Include="Assets\Scenes Scripts\EndRun.cs" />
+    <Compile Include="Assets\Scenes Scripts\FadeScript.cs" />
     <Compile Include="Assets\Scenes Scripts\GameController.cs" />
     <Compile Include="Assets\Scenes Scripts\MenuScript.cs" />
     <Compile Include="Assets\Scenes Scripts\PickupGem.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Assets\Scenes Scripts\ResultsScript.cs" />
     <Compile Include="Assets\Scenes Scripts\StepCounter.cs" />
     <None Include="Assets\External sources\Sets - Gems\Shaders\Gem.shader" />
+    <None Include="Assets\External sources\cave_troll\shaders\Standard Two Sided Soft Blend.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/User/Documents/5. CODE/UnityProjects/RunGame2/RunningGame/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
