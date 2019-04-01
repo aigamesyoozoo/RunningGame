@@ -48,13 +48,13 @@ public class MenuScript : MonoBehaviour
             foreach (RunItem r in runList)
             {
                 if (r.distance > pb) pb = r.distance;
-                all += string.Format("{0,-14}", r.date.ToString("dd/MM/y")) +
-                    string.Format("{0, 9:0.00}", r.distance) +
-                    string.Format("{0, 15:0.0}", r.duration) +
-                    string.Format("{0, 14:0.0}", r.speed) + "\n";
+                all += string.Format("{0,-12}", r.date.ToString("dd/MM/y")) +
+                    string.Format("{0, 10:0.00}", r.distance) +
+                    string.Format("{0, 11:0.0}", r.speed) +
+                    string.Format("{0, 13:0.0}", r.duration) + "\n";
             }
             runData.text = all;
-            pbText.text = pb.ToString("0.00");
+            pbText.text = pb.ToString("0.00") + " KM";
         }
         return runList.Count;
     }

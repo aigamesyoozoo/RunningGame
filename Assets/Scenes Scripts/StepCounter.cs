@@ -92,15 +92,14 @@ namespace PedometerU.Tests
 
         void UpdateSpeed()
         {
-            speedText.text = (((current_distance - previous_distance) * 3.28084 * 0.0003048) * 3600).ToString("F2") + " km/h";
+            // Convert metres to km then 10sec to an hour
+            speedText.text = ((current_distance - previous_distance) * 0.001 * 360).ToString("F2") + " km/h";
             previous_distance = current_distance;
         }
 
-
         void Warning()
         {
-            // When player is not moving,
-            // warn for monster attacks if user is not moving
+            // When player is not moving, warn for monster attacks
             if (!m_isMoving)
             {
                 warningTime++;
@@ -170,15 +169,13 @@ namespace PedometerU.Tests
 
         private void OnStep(int steps, double distance)
         {
-            // Display distance and steps
-            // Display the values // Distance in feet
             GameController.controller.distance = distance * 3.28084 * 0.0003048;
             previous_steps = current_steps;
             current_steps = steps;
             current_distance = distance;
 
             stepText.text = steps.ToString();
-            distanceText.text = (distance * 3.28084 * 0.0003048).ToString("F2") + " km";
+            distanceText.text = (distance * 0.001).ToString("F2") + " km";
         }
 
         private void OnDisable()

@@ -18,12 +18,13 @@ public class ResultsScript : MonoBehaviour
     public Animator monster_animator;
     public GameObject player;
     public GameObject monster;
+    public AudioSource sceneSound;
+    public AudioClip monsterFootStepsClip;
 
-    void Start()
+    private void Awake()
     {
-
         GameController.controller.Save();
-        distanceText.text = GameController.controller.distance.ToString("0.0");
+        distanceText.text = GameController.controller.distance.ToString("0.00");
         speedText.text = GameController.controller.speed.ToString("0.0") + " km/h";
         durationText.text = GameController.controller.duration.ToString("0.0") + " min";
         gemsText.text = GameController.controller.gems.ToString("0");
@@ -36,16 +37,18 @@ public class ResultsScript : MonoBehaviour
             monster.SetActive(true);
             goodrunImage.enabled = false;
             youloseImage.enabled = true;
-            //starsTwinkle.emission.enabled = false;
+            sceneSound.clip = monsterFootStepsClip;
         }
-
         else
         {
             // Ensure player is in running animation
             m_animator.SetFloat("MoveSpeed", 1f);
             m_animator.SetBool("Grounded", true);
         }
-        
+    }
+    void Start()
+    {
+        sceneSound.Play();
     }
 
     public void GoMenu()

@@ -38,15 +38,12 @@ public class GameController : MonoBehaviour
         BinaryFormatter bf = new BinaryFormatter();
         runList = Load();
         runList.Add(new RunItem(distance, duration, speed, DateTime.Now));
-        FileStream file = File.Exists(Application.persistentDataPath + RUN_DATA_DESTINATION) ? 
-            File.Open(Application.persistentDataPath + RUN_DATA_DESTINATION, FileMode.Open) :
-            File.Create(Application.persistentDataPath + RUN_DATA_DESTINATION);
+        //FileStream file = File.Exists(Application.persistentDataPath + RUN_DATA_DESTINATION) ? 
+        //    File.Open(Application.persistentDataPath + RUN_DATA_DESTINATION, FileMode.Open) :
+        //    File.Create(Application.persistentDataPath + RUN_DATA_DESTINATION);
+        FileStream file = File.Create(Application.persistentDataPath + RUN_DATA_DESTINATION);
         bf.Serialize(file, runList);
         file.Close();
-        foreach(RunItem r in runList)
-        {
-            Debug.Log(r);
-        }
 
         // Gems
         BinaryFormatter bf2 = new BinaryFormatter();
