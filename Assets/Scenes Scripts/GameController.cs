@@ -35,17 +35,15 @@ public class GameController : MonoBehaviour
 
     public void Save()
     {
+        // Save current run's details into file
         BinaryFormatter bf = new BinaryFormatter();
         runList = Load();
         runList.Add(new RunItem(distance, duration, speed, DateTime.Now));
-        //FileStream file = File.Exists(Application.persistentDataPath + RUN_DATA_DESTINATION) ? 
-        //    File.Open(Application.persistentDataPath + RUN_DATA_DESTINATION, FileMode.Open) :
-        //    File.Create(Application.persistentDataPath + RUN_DATA_DESTINATION);
         FileStream file = File.Create(Application.persistentDataPath + RUN_DATA_DESTINATION);
         bf.Serialize(file, runList);
         file.Close();
 
-        // Gems
+        // Save gems into file
         BinaryFormatter bf2 = new BinaryFormatter();
         int totalGems = GetTotalGems() + gems;
         FileStream file2 = File.Exists(Application.persistentDataPath + PLAYER_DATA_DESTINATION) ?
@@ -56,7 +54,9 @@ public class GameController : MonoBehaviour
     }
 
     public List<RunItem> Load(){
+
         runList.Clear();
+
         if (File.Exists(Application.persistentDataPath + RUN_DATA_DESTINATION)){
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + RUN_DATA_DESTINATION, FileMode.Open);

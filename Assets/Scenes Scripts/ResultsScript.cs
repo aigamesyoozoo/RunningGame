@@ -24,31 +24,44 @@ public class ResultsScript : MonoBehaviour
     private void Awake()
     {
         GameController.controller.Save();
+
+        DisplayRunDetails();
+
+        if (GameController.controller.lose)
+            DisplayLosingScreen();
+        else
+            DisplayWinningScreen();
+    }
+
+    void Start()
+    {
+        sceneSound.Play();
+    }
+
+    private void DisplayRunDetails()
+    {
         distanceText.text = GameController.controller.distance.ToString("0.00");
         speedText.text = GameController.controller.speed.ToString("0.0") + " km/h";
         durationText.text = GameController.controller.duration.ToString("0.0") + " min";
         gemsText.text = GameController.controller.gems.ToString("0");
-
-        if (GameController.controller.lose)
-        {
-            starsGroup.alpha = 0;
-            player.SetActive(false);
-            monster_animator.SetTrigger("walk");
-            monster.SetActive(true);
-            goodrunImage.enabled = false;
-            youloseImage.enabled = true;
-            sceneSound.clip = monsterFootStepsClip;
-        }
-        else
-        {
-            // Ensure player is in running animation
-            m_animator.SetFloat("MoveSpeed", 1f);
-            m_animator.SetBool("Grounded", true);
-        }
     }
-    void Start()
+
+    private void DisplayWinningScreen()
     {
-        sceneSound.Play();
+        // Ensure player is in running animation
+        m_animator.SetFloat("MoveSpeed", 1f);
+        m_animator.SetBool("Grounded", true);
+    }
+
+    private void DisplayLosingScreen()
+    {
+        starsGroup.alpha = 0;
+        player.SetActive(false);
+        monster_animator.SetTrigger("walk");
+        monster.SetActive(true);
+        goodrunImage.enabled = false;
+        youloseImage.enabled = true;
+        sceneSound.clip = monsterFootStepsClip;
     }
 
     public void GoMenu()

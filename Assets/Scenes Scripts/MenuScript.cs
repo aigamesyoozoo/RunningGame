@@ -15,17 +15,11 @@ public class MenuScript : MonoBehaviour
     public Text pbText;
     public Text startText;
 
-
     void Start()
     {
         LoadGems();
         if (LoadAchievements() == 0)
             startText.text = "Begin Quest";
-    }
-
-    public void StartRun()
-    {
-        SceneManager.LoadScene("StepCounter");
     }
 
     private void LoadGems()
@@ -71,5 +65,10 @@ public class MenuScript : MonoBehaviour
         panelAchievements.SetBool("isHidden", true);
         startButton.SetBool("isHidden", false);
         achievementsButton.SetBool("isHidden", false);
+    }
+
+    public void StartRun()
+    {
+        SceneManager.LoadScene("StepCounter");
     }
 }
