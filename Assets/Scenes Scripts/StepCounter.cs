@@ -47,14 +47,16 @@ namespace PedometerU.Tests
         private bool m_isMoving = false;
         private int previous_steps = 0;
         private int current_steps = 0;
-        public double previous_distance;
-        public double current_distance;
+        private double previous_distance;
+        private double current_distance;
 
         public Text stepText;
         public Text distanceText;
         public Text speedText;
         public Text resultText;
         public Text gemText;
+        public Text loggerTextLeft;
+        public Text loggerTextRight;
         public CanvasGroup panelMessage;
 
         public AudioSource monsterGrowl;
@@ -79,7 +81,7 @@ namespace PedometerU.Tests
 
             GameController.controller.Reset();
 
-            InvokeRepeating("UpdateMoving", 0.0f, 0.3f);
+            InvokeRepeating("UpdateMoving", 0.0f, 2f);
             InvokeRepeating("UpdateSpeed", 0.0f, 10f);
             InvokeRepeating("Warning", 10.0f, 17.0f);
         }
@@ -87,17 +89,23 @@ namespace PedometerU.Tests
         private void OnStep(int steps, double distance)
         {
             GameController.controller.distance = distance * 3.28084 * 0.0003048;
-            previous_steps = current_steps;
             current_steps = steps;
             current_distance = distance;
-
             stepText.text = steps.ToString();
             distanceText.text = (distance * 0.001).ToString("F2") + " km";
+
+            //loggerTextLeft.text = "OnStep >> current " + current_steps + ", previous " + previous_steps + "\n" + loggerTextLeft.text;
         }
 
         void UpdateMoving()
         {
             m_isMoving = current_steps != previous_steps;
+            if (m_isMoving)
+                previous_steps = current_steps;
+
+            //loggerTextRight.text = "UpdateMoving >> moving? " + m_isMoving + " | current " + current_steps + " previous" +
+            //    previous_steps + "\n" + loggerTextRight.text;
+
         }
 
         void UpdateSpeed()
@@ -200,7 +208,6 @@ namespace PedometerU.Tests
 
         private void AutoUpdate()
         {
-
             if (!m_isMoving)
             {
                 m_currentV = 0;
