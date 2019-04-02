@@ -94,7 +94,7 @@ namespace PedometerU.Tests
             stepText.text = steps.ToString();
             distanceText.text = (distance * 0.001).ToString("F2") + " km";
 
-            //loggerTextLeft.text = "OnStep >> current " + current_steps + ", previous " + previous_steps + "\n" + loggerTextLeft.text;
+            loggerTextLeft.text = "OnStep >> current " + current_steps + ", previous " + previous_steps + "\n" + loggerTextLeft.text;
         }
 
         void UpdateMoving()
@@ -103,9 +103,8 @@ namespace PedometerU.Tests
             if (m_isMoving)
                 previous_steps = current_steps;
 
-            //loggerTextRight.text = "UpdateMoving >> moving? " + m_isMoving + " | current " + current_steps + " previous" +
-            //    previous_steps + "\n" + loggerTextRight.text;
-
+            loggerTextRight.text = "UpdateMoving >>  current " + current_steps + " previous" +
+                previous_steps + "\n" + loggerTextRight.text;
         }
 
         void UpdateSpeed()
