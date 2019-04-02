@@ -632,21 +632,31 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Pedometer\Example\StepCounter.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\IPedometer.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\Pedometer.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\PedometerTypes.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\PedometerUtility.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerAndroid.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometerBridge.cs" />
-    <Compile Include="Assets\Pedometer\Plugins\Managed\Platforms\PedometeriOS.cs" />
-    <Compile Include="Assets\Scripts\CreateScence.cs" />
-    <Compile Include="Assets\Scripts\Destroy.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\CameraLogic.cs" />
-    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\Demo.cs" />
+    <Compile Include="Assets\External sources\cave_troll\scripts\camera_follow.cs" />
+    <Compile Include="Assets\External sources\Gems Ultimate Pack\Scripts\AnimationScript.cs" />
+    <Compile Include="Assets\External sources\Supercyan Character Pack Free Sample\Scripts\CameraLogic.cs" />
+    <Compile Include="Assets\External sources\Supercyan Character Pack Free Sample\Scripts\Demo.cs" />
+    <Compile Include="Assets\Scenes Scripts\CameraShake.cs" />
+    <Compile Include="Assets\Scenes Scripts\CreateScence.cs" />
+    <Compile Include="Assets\Scenes Scripts\Destroy.cs" />
+    <Compile Include="Assets\Scenes Scripts\EndRun.cs" />
+    <Compile Include="Assets\Scenes Scripts\FadeScript.cs" />
+    <Compile Include="Assets\Scenes Scripts\GameController.cs" />
+    <Compile Include="Assets\Scenes Scripts\MenuScript.cs" />
+    <Compile Include="Assets\Scenes Scripts\PickupGem.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\IPedometer.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\Pedometer.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\PedometerTypes.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\PedometerUtility.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\Platforms\PedometerAndroid.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\Platforms\PedometerBridge.cs" />
+    <Compile Include="Assets\Scenes Scripts\Plugins\Managed\Platforms\PedometeriOS.cs" />
+    <Compile Include="Assets\Scenes Scripts\ResultsScript.cs" />
+    <Compile Include="Assets\Scenes Scripts\StepCounter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\External sources\Sets - Gems\Shaders\Gem.shader" />
+    <None Include="Assets\External sources\cave_troll\shaders\Standard Two Sided Soft Blend.shader" />
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryCommon.uss" />
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryDark.uss" />
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryLight.uss" />
